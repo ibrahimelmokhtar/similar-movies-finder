@@ -56,6 +56,17 @@ const listening = () => {
 };
 
 
+// Callback function to complete POST '/postMovieTitle':
+const postMovieTitle = (req, res) => {
+  // save the new data into emailDetails object:
+  const movieTitle = req.body.title;
+  console.log(movieTitle);
+
+  // close the connection successfully:
+  res.status(200).end();
+};
+
+
 /**
  * End of Main Functions.
  *
@@ -65,6 +76,8 @@ const listening = () => {
 // initiate the server:
 const server = app.listen(port, listening);
 
+// Initialize POST '/postMovieTitle' route with a callback function:
+app.post('/postMovieTitle', postMovieTitle);
 
 /**
  * End of Event Listeners.
