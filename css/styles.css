@@ -6,3 +6,225 @@ body * {
     box-sizing: border-box;
     font-family: 'Roboto', sans-serif;
 }
+
+
+body {
+    background-color: #f7f7f7;
+
+}
+
+
+/* ************************************************************************************************* */
+/* *****************************************     Header     **************************************** */
+/* ************************************************************************************************* */
+
+header {
+    color: #313552;
+    height: 10vh;
+    width: 100%;
+
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+
+
+/* Main Page Title */
+header h1 {
+    font-size: 20pt;
+    font-weight: 800;
+}
+
+
+/* ************************************************************************************************* */
+/* ***************************************     Search Bar     ************************************** */
+/* ************************************************************************************************* */
+
+form {
+    height: 8vh;
+
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+
+
+/* Form Label */
+form label {
+    padding: 10px 20px;
+    border: 1px solid #313552;
+    font-size: 18pt;
+    height: 100%;
+    cursor: pointer;
+
+    border-top-left-radius: 10px;
+    border-bottom-left-radius: 10px;
+}
+
+
+/* Form Text Input */
+form input {
+    border: 1px solid #313552;
+    padding: 10px 20px;
+    width: 400px;
+    font-size: 14pt;
+    height: 100%;
+
+    position: relative;
+}
+
+
+/* Close Icon */
+form #close__icon {
+    font-size: 20pt;
+    color:#b8405e;
+    opacity: 0.3;
+    transform: scale(1);
+
+    position: absolute;
+    right: calc(50% - 220px);
+
+    transition-duration: 0.5s;
+    transition-property: color, opacity, transform;
+}
+
+
+form #close__icon:hover {
+    cursor: pointer;
+    color:#ff0000;
+    opacity: 1;
+    transform: scale(1.1);
+}
+
+
+/* Form Search Button */
+form button {
+    border: 1px solid #313552;
+    background-color: #f7f7f7;
+    padding: 10px 20px;
+    font-size: 14pt;
+    color: #313552;
+    height: 100%;
+
+    border-top-right-radius: 10px;
+    border-bottom-right-radius: 10px;
+
+    transition-duration: 0.5s;
+    transition-property: color, background-color;
+}
+
+
+form button:hover {
+    cursor: pointer;
+    background-color: #2eb086;
+    color: #f7f7f7;
+}
+
+
+/* Search Icon */
+form button #search__icon {
+    transform: scale(1);
+
+    transition-duration: 0.5s;
+    transition-property: transform;
+}
+
+
+form button:hover #search__icon {
+    transform: scale(1.2);
+}
+
+
+/* ************************************************************************************************* */
+/* *************************************     Similar Movies     ************************************ */
+/* ************************************************************************************************* */
+
+#similar__movies {
+    min-height: 74vh;
+    background-color: cadetblue;
+}
+
+
+/* ************************************************************************************************* */
+/* *****************************************     Footer     **************************************** */
+/* ************************************************************************************************* */
+
+footer {
+    color: #313552;
+    height: 8vh;
+    width: 100%;
+    padding: 0 20px;
+
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+
+
+footer * {
+    font-size: 16pt;
+}
+
+/* Credit Caption */
+#credit__caption a {
+    text-decoration: none;
+    color: #313552;
+    font-weight: 900;
+
+    transition-duration: 0.5s;
+    transition-property: color;
+}
+
+
+#credit__caption a:hover {
+    color: #2eb086;
+}
+
+
+/* Social Media Links */
+#social__media {
+    width: 120px;
+
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+
+
+#social__media * {
+    font-size: 24pt;
+    color: #313552;
+    transform: scale(1);
+
+    transition-duration: 0.5s;
+    transition-property: color, transform;
+}
+
+
+#social__media *:hover {
+    cursor: pointer;
+    color: #2eb086;
+    transform: scale(1.1);
+}
+
+
+/* Main Caption */
+#main__caption {
+    text-transform: uppercase;
+}
+
+
+#main__caption span {
+    color: #ff0000;
+    font-size: 20pt;
+}
+
+
+#main__caption i {
+    color: #F1D00A;
+    font-size: 20pt;
+}
