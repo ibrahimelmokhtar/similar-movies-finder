@@ -7,14 +7,15 @@
 // obtain specific elements from the DOM:
 const movieTitleObject = document.querySelector('#movie__title');
 const searchBtnObject = document.querySelector('#search__btn');
+const MoviesListObject = document.querySelector('#similar__movies');
 
 
 // api credential:
-const apiKey = "58ca8c5765590f0ebe6f99645818bb89";
-const baseURL = `https://api.themoviedb.org/3/movie/550?api_key=${apiKey}`;
+const apiKey = '58ca8c5765590f0ebe6f99645818bb89';
+const baseURL = `https://api.themoviedb.org/3`;
 
 let movieTitle = '';
-let favoriteMovieDetails = {};
+let movieID = '';
 
 
 /**
@@ -61,18 +62,19 @@ const getMovieTitle = async () => {
 
 
 /**
- * @description Fetch API data of user's favorite movie.
- * @param {String} movieTitle
+ * @description Fetch API data of user's favorite movie to get movie ID.
  */
- const obtainMovieData = async () => {
-    const url = `${baseURL}&query=${movieTitle.split(' ').join('+')}`;
+const obtainMovieID = async () => {
+    const url = `${baseURL}/search/movie?api_key=${apiKey}&query=${movieTitle.split(' ').join('+')}`;
     console.log(url);
 
     try {
         const response = await fetch(url);
-        favoriteMovieDetails = await response.json();
+        const favoriteMovieDetails = await response.json();
 
-        console.log(favoriteMovieDetails);
+        movieID = favoriteMovieDetails.results[0].id;
+
+        console.log(movieID);
     } catch (error) {
         console.log(`error: ${error}`);
     }
@@ -85,6 +87,7 @@ const getMovieTitle = async () => {
  * Start of Main Functions.
  */
 
+
 /**
  * @description Find datails about the entered movie title.
  */
@@ -93,7 +96,7 @@ const findMovieDetails = async () => {
     await getMovieTitle();
 
     // obtain current movie data:
-    await obtainMovieData();
+    await obtainMovieID();
 };
 
 
