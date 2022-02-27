@@ -43,6 +43,7 @@ header h1 {
 
 form {
     height: 8vh;
+    margin-bottom: 20px;
 
     display: flex;
     flex-direction: row;
@@ -143,7 +144,123 @@ form button:hover #search__icon {
 
 #similar__movies {
     min-height: 74vh;
-    background-color: cadetblue;
+    list-style: none;
+    padding: 40px;
+
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+}
+
+
+/* Single Movie Card */
+.movie__card {
+    background-color: #313552;
+    width: 16%;
+    border-radius: 25px;
+    overflow: hidden;
+
+    position: relative;
+    margin: 20px;
+
+    border: 2px solid;
+    border-color: #f7f7f7;
+
+    transition: 0.5s border-color;
+}
+
+
+.movie__card:hover {
+    border-color: #ff008e;
+    cursor: pointer;
+}
+
+
+/* Movie Poster Image */
+.movie__poster {
+    width: 100%;
+    transform: scale(1.1);
+
+    transition: 0.5s transform;
+}
+
+
+.movie__card:hover .movie__poster {
+    transform: scale(1.2);
+}
+
+
+/* Movie Details */
+.movie__details {
+    background-color: #ffffff;
+    color: #313552;
+    width: 100%;
+    padding: 30px 15px 15px;
+    line-height: 20pt;
+    border-top: 3px solid;
+    border-color: #f7f7f7;
+
+    transition: 0.5s border-color;
+
+    position: relative;
+}
+
+
+.movie__card:hover .movie__details {
+    border-color: #ff008e;
+}
+
+
+/* Movie Rating Score */
+.user__score {
+    background-color: #ffffff;
+    width: 50px;
+    height: 50px;
+
+    border: 2px solid;
+    border-radius: 50%;
+    border-color: #313552;
+    transition: 0.5s border-color;
+
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+
+    position: absolute;
+    top: -25px;
+    left: 20px;
+}
+
+
+.user__score #percentage {
+    font-size: 8pt;
+    font-weight: 400;
+}
+
+
+.user__score #value {
+    font-size: 18pt;
+    font-weight: 600;
+}
+
+
+/* Movie Title */
+.movie__title {
+    font-weight: 800;
+    font-size: 16pt;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+}
+
+
+/* Movie Release Date */
+.release__date {
+    font-size: 12pt;
+    font-weight: 400;
 }
 
 
