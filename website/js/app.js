@@ -127,7 +127,10 @@ const findMovieDetails = async () => {
     await obtainMovieID();
 
     // find similar movies:
-    await findSimilarMovies();
+    similarMovies = [];
+    for (let i=1; i<=2; i++) {
+        await findSimilarMovies(i);
+    }
 
     // extract specific details about movies:
     extractMoviesData();
@@ -143,13 +146,19 @@ const findMovieDetails = async () => {
 /**
  * @description Find movies similar to the favorite movie of the user.
  */
-const findSimilarMovies = async () => {
-    const url = `${baseURL}/movie/${movieID}/similar?api_key=${apiKey}&language=en-US&page=1`;
+const findSimilarMovies = async (pageNumber) => {
+    const url = `https://api.themoviedb.org/3/movie/${movieID}/recommendations?api_key=${apiKey}&language=en-US&page=${pageNumber}`;
 
-    const response = await fetch(url);
-    const resultsObject = await response.json();
+    try {
+        const response = await fetch(url);
+        const resultsObject = await response.json();
 
-    similarMovies = resultsObject.results;
+        // unpack the obtained result:
+        similarMovies.push(...resultsObject.results);
+
+    } catch (error) {
+        console.log(`error: ${error}`);
+    }
 };
 
 
@@ -191,6 +200,7 @@ const findSimilarMovies = async () => {
     MoviesListObject.innerHTML = '';
 
     const fragment = document.createDocumentFragment();
+
     for (let i=0; i<moviesDesiredData.length; i++) {
         // create empty <li> element to contain movie details:
         const movieCardObject = document.createElement('li');
