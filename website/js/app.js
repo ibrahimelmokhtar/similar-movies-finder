@@ -17,6 +17,7 @@ const baseURL = `https://api.themoviedb.org/3`;
 let movieTitle = '';
 let movieID = '';
 let similarMovies = [];
+let moviesDesiredData = [];
 
 
 /**
@@ -82,6 +83,30 @@ const obtainMovieID = async () => {
 
 
 /**
+ * @description Extract specific details about each movie.
+ */
+const extractMoviesData = () => {
+    for (let i=0; i<similarMovies.length; i++) {
+        // format the release date of the movie:
+        let formatDate = new Date(similarMovies[i].release_date).toDateString().split(' ');
+        formatDate = `${formatDate[1]} ${formatDate[2]}, ${formatDate[3]}`;
+
+        // construct movie object:
+        const singleMovie = {
+            id: similarMovies[i].id,
+            title: similarMovies[i].title,
+            posterURL: `https://image.tmdb.org/t/p/w500${similarMovies[i].poster_path}`,
+            userScore: Math.round(similarMovies[i].vote_average * 10),
+            releaseDate: formatDate,
+        };
+
+        // append the created movie object into the array:
+        moviesDesiredData.push(singleMovie);
+    }
+};
+
+
+/**
  * End of Helper Functions.
  *
  * Start of Main Functions.
@@ -100,6 +125,9 @@ const findMovieDetails = async () => {
 
     // find similar movies:
     await findSimilarMovies();
+
+    extractMoviesData();
+    console.log(moviesDesiredData);
 };
 
 
@@ -113,7 +141,6 @@ const findSimilarMovies = async () => {
     const resultsObject = await response.json();
 
     similarMovies = resultsObject.results;
-    console.log(similarMovies);
 };
 
 
