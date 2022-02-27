@@ -86,6 +86,9 @@ const obtainMovieID = async () => {
  * @description Extract specific details about each movie.
  */
 const extractMoviesData = () => {
+    // clear the previously captured movies:
+    moviesDesiredData = [];
+
     for (let i=0; i<similarMovies.length; i++) {
         // format the release date of the movie:
         let formatDate = new Date(similarMovies[i].release_date).toDateString().split(' ');
@@ -126,8 +129,11 @@ const findMovieDetails = async () => {
     // find similar movies:
     await findSimilarMovies();
 
+    // extract specific details about movies:
     extractMoviesData();
-    console.log(moviesDesiredData);
+
+    // display the movies into movie cards:
+    displaySimilarMovies();
 };
 
 
@@ -141,6 +147,39 @@ const findSimilarMovies = async () => {
     const resultsObject = await response.json();
 
     similarMovies = resultsObject.results;
+};
+
+
+/**
+ * @description Display the list of similar movies.
+ */
+ const displaySimilarMovies = () => {
+    // clear displayed movies list:
+    MoviesListObject.innerHTML = '';
+
+    const fragment = document.createDocumentFragment();
+    for (let i=0; i<moviesDesiredData.length; i++) {
+        // create empty <li> element to contain movie details:
+        const movieCardObject = document.createElement('li');
+        movieCardObject.classList.add('movie__card');
+
+        // construct the details of a specific movie:
+        movieCardObject.innerHTML =
+        `
+            <img src="${moviesDesiredData[i].posterURL}" alt="Movie Poster Image" class="movie__poster">
+            <div class="movie__details">
+                <div class="user__score"><span id="value">${moviesDesiredData[i].userScore}</span><span id="percentage">&percnt;</span></div>
+                <h2 class="movie__title">${moviesDesiredData[i].title}</h2>
+                <h2 class="release__date">${moviesDesiredData[i].releaseDate}</h2>
+            </div>
+        `;
+
+        // append movie card to the virtual element:
+        fragment.append(movieCardObject);
+    }
+
+    // append the virtual element to the <ul> element:
+    MoviesListObject.append(fragment);
 };
 
 
