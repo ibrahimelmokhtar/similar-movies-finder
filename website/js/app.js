@@ -16,6 +16,7 @@ const baseURL = `https://api.themoviedb.org/3`;
 
 let movieTitle = '';
 let movieID = '';
+let similarMovies = [];
 
 
 /**
@@ -23,6 +24,7 @@ let movieID = '';
  *
  * Start of Helper Functions.
  */
+
 
 /**
  * @description Get user's favorite movie title.
@@ -66,7 +68,6 @@ const getMovieTitle = async () => {
  */
 const obtainMovieID = async () => {
     const url = `${baseURL}/search/movie?api_key=${apiKey}&query=${movieTitle.split(' ').join('+')}`;
-    console.log(url);
 
     try {
         const response = await fetch(url);
@@ -74,7 +75,6 @@ const obtainMovieID = async () => {
 
         movieID = favoriteMovieDetails.results[0].id;
 
-        console.log(movieID);
     } catch (error) {
         console.log(`error: ${error}`);
     }
@@ -95,8 +95,25 @@ const findMovieDetails = async () => {
     // get user's favorite movie title:
     await getMovieTitle();
 
-    // obtain current movie data:
+    // obtain current movie ID:
     await obtainMovieID();
+
+    // find similar movies:
+    await findSimilarMovies();
+};
+
+
+/**
+ * @description Find movies similar to the favorite movie of the user.
+ */
+const findSimilarMovies = async () => {
+    const url = `${baseURL}/movie/${movieID}/similar?api_key=${apiKey}&language=en-US&page=1`;
+
+    const response = await fetch(url);
+    const resultsObject = await response.json();
+
+    similarMovies = resultsObject.results;
+    console.log(similarMovies);
 };
 
 
@@ -105,6 +122,7 @@ const findMovieDetails = async () => {
  *
  * Start of Event Listeners.
  */
+
 
 // main entry point:
 document.addEventListener('DOMContentLoaded', () => {
