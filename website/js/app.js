@@ -132,6 +132,9 @@ const findMovieDetails = async () => {
     // extract specific details about movies:
     extractMoviesData();
 
+    // sort the collected movies:
+    sortMovies();
+
     // display the movies into movie cards:
     displaySimilarMovies();
 };
@@ -147,6 +150,36 @@ const findSimilarMovies = async () => {
     const resultsObject = await response.json();
 
     similarMovies = resultsObject.results;
+};
+
+
+/**
+ * @description Apply 'Insertion Sort' to sort the movies based on their user score.
+ */
+ const sortMovies = () => {
+    // sort the array from lowest to highest:
+    for (let i=1; i<moviesDesiredData.length; i++) {
+        let lastSortedIndex = i;
+        let currentMovie = moviesDesiredData[i];
+
+        for (let j=i-1; j>=0; j--) {
+            if (currentMovie.userScore < moviesDesiredData[j].userScore) {
+                // swap the TWO movies:
+                let temp = moviesDesiredData[j];
+                moviesDesiredData[j] = currentMovie;
+                moviesDesiredData[lastSortedIndex] = temp;
+
+                // update last sorted index:
+                lastSortedIndex = j;
+            }
+            else {
+                break;
+            }
+        }
+    }
+
+    // reverse the array to be sorted from highest to lowest:
+    moviesDesiredData.reverse();
 };
 
 
