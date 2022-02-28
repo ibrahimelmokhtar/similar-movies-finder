@@ -77,7 +77,7 @@ form input {
 
 
 /* Close Icon */
-form #close__icon {
+.close__icon {
     font-size: 20pt;
     color:#b8405e;
     opacity: 0.3;
@@ -91,7 +91,7 @@ form #close__icon {
 }
 
 
-form #close__icon:hover {
+.close__icon:hover {
     cursor: pointer;
     color:#ff0000;
     opacity: 1;
@@ -197,7 +197,7 @@ form button:hover #search__icon {
     color: #313552;
     width: 100%;
     padding: 30px 15px 15px;
-    line-height: 20pt;
+    line-height: 2;
     border-top: 3px solid;
     border-color: #f7f7f7;
 
@@ -259,6 +259,145 @@ form button:hover #search__icon {
 /* Movie Release Date */
 .release__date {
     font-size: 12pt;
+    font-weight: 400;
+}
+
+
+/* ************************************************************************************************* */
+/* *************************************     Single Movie     ************************************** */
+/* ************************************************************************************************* */
+
+.movie__container {
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.3);
+
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+
+/* Single Movie Card */
+.single__movie {
+    width: 80vw;
+    height: 80vh;
+    background-color: #c3c4be;
+    border-radius: 50px;
+    overflow: hidden;
+    color: #313552;
+
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+
+    position: absolute;
+    top: calc(50% - 40vh);
+    left: calc(50% - 40vw);
+}
+
+
+/* Close Icon */
+.single__movie .close__icon {
+    position: absolute;
+    top: 30px;
+    right: 30px;
+    opacity: 0.6;
+}
+
+
+/* Movie Poster Image */
+.single__movie img {
+    height: 100%;
+}
+
+
+/* Movie Details */
+.single__movie .details__container {
+    height: 80%;
+    width: 100%;
+    padding: 0 40px;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: flex-start;
+}
+
+
+/* Movie Title and Year */
+.single__movie .main__title {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+    align-items: flex-start;
+}
+
+
+/* Movie Title */
+.main__title h2 {
+    font-size: 24pt;
+    font-weight: 900;
+    line-height: 1.6;
+}
+
+
+/* Movie Year */
+.main__title h2 .year {
+    font-style: italic;
+    font-size: 20pt;
+    font: 600;
+    color: #ffffff;
+}
+
+
+/* Movie Release Date, Genres and Runtime */
+.main__title ul {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: start;
+    align-items: center;
+}
+
+
+.main__title ul * {
+    margin-right: 25px;
+}
+
+
+.main__title ul *:not(:first-child) {
+    list-style: disc;
+}
+
+
+/* User Score */
+.single__movie .user__score {
+    position: static;
+}
+
+
+/* Movie Tagline */
+.single__movie .movie__tagline {
+    font-style: italic;
+    font-size: 14pt;
+    font-weight: 400;
+}
+
+
+/* Movie Overview */
+.single__movie .movie__overview h2 {
+    font-size: 18pt;
+    font-weight: 600;
+    line-height: 1.6;
+}
+
+
+.single__movie .movie__overview p {
+    line-height: 1.6;
+    font-size: 14pt;
     font-weight: 400;
 }
 

@@ -33,7 +33,7 @@
         <form action="javascript:;">
             <label for="movie__title">Movie Name:</label>
             <input type="text" id="movie__title" placeholder="What is your favorite movie?" required>
-            <i class="fas fa-times" id="close__icon"></i>
+            <i class="fas fa-times close__icon"></i>
             <button type="submit" id="search__btn">
                 <i class="fas fa-search" id="search__icon"></i>
                 Search
@@ -43,6 +43,34 @@
         <!-- Display Area for Similar Movies -->
         <ul id="similar__movies"></ul>
     </main>
+
+    <div class="movie__container">
+        <div class="single__movie">
+            <i class="fas fa-times close__icon"></i>
+            <img src="https://image.tmdb.org/t/p/w500/eEslKSwcqmiNS6va24Pbxf2UKmJ.jpg" alt="Movie Poster Image">
+            <div class="details__container">
+                <div class="main__title">
+                    <h2>The Godfather <span class="year">(1972)</span></h2>
+                    <ul>
+                        <li>Mar 15, 1972</li>
+                        <li>Drama, Crime</li>
+                        <li>2h 55m</li>
+                    </ul>
+                </div>
+                <div class="user__score"><span id="value">87</span><span id="percentage">&percnt;</span></div>
+                <div class="movie__tagline">An offer you can't refuse.</div>
+                <div class="movie__overview">
+                    <h2>Overview</h2>
+                    <p>
+                        Spanning the years 1945 to 1955, a chronicle of the fictional Italian-American Corleone
+                        crime family. When organized crime family patriarch, Vito Corleone barely survives
+                        an attempt on his life, his youngest son, Michael steps in to take care of the would-be killers,
+                        launching a campaign of bloody revenge.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <footer>
         <h2 id="credit__caption">
