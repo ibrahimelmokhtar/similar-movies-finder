@@ -18,6 +18,7 @@ let movieTitle = '';
 let movieID = '';
 let similarMovies = [];
 let moviesDesiredData = [];
+let clickedMovieDetails = {};
 
 
 /**
@@ -83,6 +84,72 @@ const obtainMovieID = async () => {
 
 
 /**
+ * @description Convert the movie runtime into actual time format.
+ * @param {Number} runtime
+ * @returns {String} formatted time as hh:mm:ss
+ */
+const convertMovieRuntime = (runtime) => {
+    let formatTime = new Date(runtime * 1000).toISOString();
+        if (runtime < 3600) {
+            formatTime = formatTime.substr(14, 5);
+        }
+        else {
+            formatTime = formatTime.substr(11, 8);
+        }
+        return formatTime;
+};
+
+/**
+ * @description Extract genres types for each movie.
+ * @param {Array Object} genres
+ * @returns {Array Object} extracted genres
+ */
+const extractMovieGenres =(genres) => {
+    let extractedGenres = [];
+    for (let i=0; i<genres.length; i++) {
+        extractedGenres.push(genres[i].name);
+    }
+    return extractedGenres;
+};
+
+
+/**
+ * @description Fetch API data to get movie details.
+ */
+ const obtainMovieDetails = async (currentMovieIndex, currentMovieID) => {
+     const url = `${baseURL}/movie/${currentMovieID}?api_key=${apiKey}`;
+
+    try {
+        const response = await fetch(url);
+        const currentMovieDetails = await response.json();
+
+        // format movie runtime into actual time:
+        const formatTime = convertMovieRuntime(currentMovieDetails.runtime);
+
+        // extract movie genres:
+        const movieGenres = extractMovieGenres(currentMovieDetails.genres);
+
+        // construct desired movie details:
+        clickedMovieDetails = {
+            id: moviesDesiredData[currentMovieIndex].id,
+            title: moviesDesiredData[currentMovieIndex].title,
+            posterURL: moviesDesiredData[currentMovieIndex].posterURL,
+            userScore: moviesDesiredData[currentMovieIndex].userScore,
+            releaseDate: moviesDesiredData[currentMovieIndex].releaseDate,
+            overview: currentMovieDetails.overview,
+            tagline: currentMovieDetails.tagline,
+            year: new Date(currentMovieDetails.release_date).getFullYear(),
+            runtime: formatTime,
+            genres: movieGenres,
+        };
+
+    } catch (error) {
+        console.log(`error: ${error}`);
+    }
+};
+
+
+/**
  * @description Extract specific details about each movie.
  */
 const extractMoviesData = () => {
@@ -134,7 +201,7 @@ const removeRepeatedMovies = () => {
 /**
  * @description Find datails about the entered movie title.
  */
-const findMovieDetails = async () => {
+const startSearching = async () => {
     // get user's favorite movie title:
     await getMovieTitle();
 
@@ -223,6 +290,8 @@ const findSimilarMovies = async (pageNumber) => {
         // create empty <li> element to contain movie details:
         const movieCardObject = document.createElement('li');
         movieCardObject.classList.add('movie__card');
+        movieCardObject.setAttribute('data-id', moviesDesiredData[i].id);
+        movieCardObject.setAttribute('data-index', i);
 
         // construct the details of a specific movie:
         movieCardObject.innerHTML =
@@ -245,6 +314,42 @@ const findSimilarMovies = async (pageNumber) => {
 
 
 /**
+ * @description Display clicked movie details.
+ * @param {Event} event
+ */
+const displayMovieDetails = async (event) => {
+    // different levels of parent nodes:
+    const firstLevelParent = event.target.parentNode;
+    const secondLevelParent = event.target.parentNode.parentNode;
+    const thirdLevelParent = event.target.parentNode.parentNode.parentNode;
+
+    // desired data to be collected from the event target:
+    let currentMovieIndex = null;
+    let currentMovieID = null;
+
+    // determine the fired event target:
+    if (firstLevelParent.hasAttribute('data-id')) {
+        currentMovieIndex = firstLevelParent.getAttribute('data-index');
+        currentMovieID = firstLevelParent.getAttribute('data-id');
+    }
+    else if (secondLevelParent.hasAttribute('data-id')) {
+        currentMovieIndex = secondLevelParent.getAttribute('data-index');
+        currentMovieID = secondLevelParent.getAttribute('data-id');
+    }
+    else if (thirdLevelParent.hasAttribute('data-id')) {
+        currentMovieIndex = thirdLevelParent.getAttribute('data-index');
+        currentMovieID = thirdLevelParent.getAttribute('data-id');
+    }
+
+    if (currentMovieID !== null) {
+        // extract movie details:
+        await obtainMovieDetails(currentMovieIndex, currentMovieID);
+        console.log(clickedMovieDetails);
+    }
+};
+
+
+/**
  * End of Main Functions.
  *
  * Start of Event Listeners.
@@ -254,7 +359,10 @@ const findSimilarMovies = async (pageNumber) => {
 // main entry point:
 document.addEventListener('DOMContentLoaded', () => {
     // listen to search button 'click' events:
-    searchBtnObject.addEventListener('click', findMovieDetails);
+    searchBtnObject.addEventListener('click', startSearching);
+
+    // listen to movie cards 'click' events:
+    MoviesListObject.addEventListener('click', displayMovieDetails);
 });
 
 
