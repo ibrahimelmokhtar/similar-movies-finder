@@ -271,10 +271,13 @@ form button:hover #search__icon {
     width: 100vw;
     height: 100vh;
     background-color: rgba(0, 0, 0, 0.3);
+    cursor: default;
 
-    position: absolute;
+    position: fixed;
     top: 0;
-    left: 0;
+    left: -100vw;
+
+    transition: 0.5s left;
 }
 
 
@@ -295,6 +298,8 @@ form button:hover #search__icon {
     position: absolute;
     top: calc(50% - 40vh);
     left: calc(50% - 40vw);
+
+    transition: 0.5s left;
 }
 
 

@@ -86,18 +86,23 @@ const obtainMovieID = async () => {
 /**
  * @description Convert the movie runtime into actual time format.
  * @param {Number} runtime
- * @returns {String} formatted time as hh:mm:ss
+ * @returns {String} formatted time as (hh mm)
  */
 const convertMovieRuntime = (runtime) => {
     let formatTime = new Date(runtime * 1000).toISOString();
-        if (runtime < 3600) {
-            formatTime = formatTime.substr(14, 5);
-        }
-        else {
-            formatTime = formatTime.substr(11, 8);
-        }
-        return formatTime;
+    if (runtime < 3600) {
+        formatTime = formatTime.substr(14, 5);
+    }
+    else {
+        formatTime = formatTime.substr(11, 8);
+    }
+
+    formatTime = formatTime.split(':');
+    formatTime = `${formatTime[0]}h ${formatTime[1]}m`;
+
+    return formatTime;
 };
+
 
 /**
  * @description Extract genres types for each movie.
@@ -116,8 +121,8 @@ const extractMovieGenres =(genres) => {
 /**
  * @description Fetch API data to get movie details.
  */
- const obtainMovieDetails = async (currentMovieIndex, currentMovieID) => {
-     const url = `${baseURL}/movie/${currentMovieID}?api_key=${apiKey}`;
+const obtainMovieDetails = async (currentMovieIndex, currentMovieID) => {
+    const url = `${baseURL}/movie/${currentMovieID}?api_key=${apiKey}`;
 
     try {
         const response = await fetch(url);
@@ -174,6 +179,7 @@ const extractMoviesData = () => {
         moviesDesiredData.push(singleMovie);
     }
 };
+
 
 /**
  * @description Remove repeated movies from the Web API result.
@@ -317,7 +323,7 @@ const findSimilarMovies = async (pageNumber) => {
  * @description Display clicked movie details.
  * @param {Event} event
  */
-const displayMovieDetails = async (event) => {
+const showMoreDetails = async (event) => {
     // different levels of parent nodes:
     const firstLevelParent = event.target.parentNode;
     const secondLevelParent = event.target.parentNode.parentNode;
@@ -344,8 +350,46 @@ const displayMovieDetails = async (event) => {
     if (currentMovieID !== null) {
         // extract movie details:
         await obtainMovieDetails(currentMovieIndex, currentMovieID);
-        console.log(clickedMovieDetails);
+
+        // display movie details:
+        displayMovieDetails();
     }
+};
+
+
+/**
+ * @description Display collected details about the clicked movie card.
+ */
+const displayMovieDetails = () => {
+    const movieContainerObject = document.querySelector('.movie__container');
+
+    // set the values with the currently clicked movie card details:
+    movieContainerObject.innerHTML =
+    `
+        <div class="single__movie">
+            <i class="fas fa-times close__icon"></i>
+            <img src="${clickedMovieDetails.posterURL}" alt="Movie Poster Image">
+            <div class="details__container">
+                <div class="main__title">
+                    <h2>${clickedMovieDetails.title} <span class="year">(${clickedMovieDetails.year})</span></h2>
+                    <ul>
+                        <li>${clickedMovieDetails.releaseDate}</li>
+                        <li>${clickedMovieDetails.genres.join(', ')}</li>
+                        <li>${clickedMovieDetails.runtime}</li>
+                    </ul>
+                </div>
+                <div class="user__score"><span id="value">${clickedMovieDetails.userScore}</span><span id="percentage">&percnt;</span></div>
+                <div class="movie__tagline">${clickedMovieDetails.tagline}</div>
+                <div class="movie__overview">
+                    <h2>Overview</h2>
+                    <p>${clickedMovieDetails.overview}</p>
+                </div>
+            </div>
+        </div>
+    `;
+
+    // update the (left) style attribute to show the movie container:
+    movieContainerObject.style.left = 0;
 };
 
 
@@ -362,7 +406,7 @@ document.addEventListener('DOMContentLoaded', () => {
     searchBtnObject.addEventListener('click', startSearching);
 
     // listen to movie cards 'click' events:
-    MoviesListObject.addEventListener('click', displayMovieDetails);
+    MoviesListObject.addEventListener('click', showMoreDetails);
 });
 
 
