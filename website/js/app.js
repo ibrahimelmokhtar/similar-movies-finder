@@ -212,6 +212,17 @@ const clearDisplayedOutput = () => {
 
 
 /**
+ * @description Close the displayed details about specific movie card.
+ * @param {Event} event
+ */
+const closeDisplayedMovie = (event) => {
+    if (event.target.classList.contains('close__icon') || event.target.classList.contains('movie__container')) {
+        movieContainerObject.style.left = '-100vw';
+    }
+};
+
+
+/**
  * End of Helper Functions.
  *
  * Start of Main Functions.
@@ -417,7 +428,11 @@ document.addEventListener('DOMContentLoaded', () => {
     // listen to search button 'click' events:
     searchBtnObject.addEventListener('click', startSearching);
 
+    // listen to close icon 'click' events at search bar:
     searchCloseIconObject.addEventListener('click', clearDisplayedOutput);
+
+    // listen to movie container 'click' events:
+    movieContainerObject.addEventListener('click', closeDisplayedMovie);
 
     // listen to movie cards 'click' events:
     moviesListObject.addEventListener('click', showMoreDetails);
