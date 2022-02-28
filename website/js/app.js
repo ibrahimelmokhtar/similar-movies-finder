@@ -7,7 +7,9 @@
 // obtain specific elements from the DOM:
 const movieTitleObject = document.querySelector('#movie__title');
 const searchBtnObject = document.querySelector('#search__btn');
-const MoviesListObject = document.querySelector('#similar__movies');
+const moviesListObject = document.querySelector('#similar__movies');
+const movieContainerObject = document.querySelector('.movie__container');
+const searchCloseIconObject = document.querySelector('form .close__icon');
 
 
 // api credential:
@@ -198,6 +200,18 @@ const removeRepeatedMovies = () => {
 
 
 /**
+ * @description Clear the displayed output.
+ */
+const clearDisplayedOutput = () => {
+    // clear the search bar:
+    movieTitleObject.value = '';
+
+    // clear the displayed movie cards:
+    moviesListObject.innerHTML = '';
+};
+
+
+/**
  * End of Helper Functions.
  *
  * Start of Main Functions.
@@ -288,7 +302,7 @@ const findSimilarMovies = async (pageNumber) => {
  */
  const displaySimilarMovies = () => {
     // clear displayed movies list:
-    MoviesListObject.innerHTML = '';
+    moviesListObject.innerHTML = '';
 
     const fragment = document.createDocumentFragment();
 
@@ -315,7 +329,7 @@ const findSimilarMovies = async (pageNumber) => {
     }
 
     // append the virtual element to the <ul> element:
-    MoviesListObject.append(fragment);
+    moviesListObject.append(fragment);
 };
 
 
@@ -361,8 +375,6 @@ const showMoreDetails = async (event) => {
  * @description Display collected details about the clicked movie card.
  */
 const displayMovieDetails = () => {
-    const movieContainerObject = document.querySelector('.movie__container');
-
     // set the values with the currently clicked movie card details:
     movieContainerObject.innerHTML =
     `
@@ -405,8 +417,10 @@ document.addEventListener('DOMContentLoaded', () => {
     // listen to search button 'click' events:
     searchBtnObject.addEventListener('click', startSearching);
 
+    searchCloseIconObject.addEventListener('click', clearDisplayedOutput);
+
     // listen to movie cards 'click' events:
-    MoviesListObject.addEventListener('click', showMoreDetails);
+    moviesListObject.addEventListener('click', showMoreDetails);
 });
 
 
