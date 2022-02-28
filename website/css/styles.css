@@ -9,8 +9,7 @@ body * {
 
 
 body {
-    background-color: #f7f7f7;
-
+    background-color: #c3c4be;
 }
 
 
@@ -43,7 +42,6 @@ header h1 {
 
 form {
     height: 8vh;
-    margin-bottom: 20px;
 
     display: flex;
     flex-direction: row;
@@ -55,6 +53,7 @@ form {
 /* Form Label */
 form label {
     padding: 10px 20px;
+    background-color: #f7f7f7;
     border: 1px solid #313552;
     font-size: 18pt;
     height: 100%;
@@ -158,7 +157,7 @@ form button:hover #search__icon {
 /* Single Movie Card */
 .movie__card {
     background-color: #313552;
-    width: 16%;
+    width: 18%;
     border-radius: 25px;
     overflow: hidden;
 

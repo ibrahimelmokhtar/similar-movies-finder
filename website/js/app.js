@@ -108,6 +108,21 @@ const extractMoviesData = () => {
     }
 };
 
+/**
+ * @description Remove repeated movies from the Web API result.
+ */
+const removeRepeatedMovies = () => {
+    for (let i=0; i<similarMovies.length; i++) {
+        for (let j=i+1; j<similarMovies.length; j++) {
+            const condition = (similarMovies[j].title === similarMovies[i].title) &&
+                                (similarMovies[j].release_date === similarMovies[i].release_date);
+            if (condition) {
+                similarMovies.splice(j, 1);
+            }
+        }
+    }
+};
+
 
 /**
  * End of Helper Functions.
@@ -131,6 +146,9 @@ const findMovieDetails = async () => {
     for (let i=1; i<=2; i++) {
         await findSimilarMovies(i);
     }
+
+    // remove repeated entries of movies:
+    removeRepeatedMovies();
 
     // extract specific details about movies:
     extractMoviesData();
