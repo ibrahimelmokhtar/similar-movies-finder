@@ -1,0 +1,163 @@
+
+/* Tablet devices */
+@media screen and (min-width: 670px) and (max-width: 1023px) {
+
+    /* ************************************************************************************************* */
+    /* *****************************************     Header     **************************************** */
+    /* ************************************************************************************************* */
+
+    header h1 {
+        font-size: 18pt;
+    }
+
+
+    /* ************************************************************************************************* */
+    /* ***************************************     Search Bar     ************************************** */
+    /* ************************************************************************************************* */
+
+    form {
+        flex-direction: row;
+        padding-top: 0;
+    }
+
+
+    form label {
+        display: flex;
+        border-top-left-radius: 10px;
+        border-bottom-left-radius: 10px;
+        font-size: 16pt;
+        height: 8vh;
+    }
+
+
+    form input {
+        width: 400px;
+        height: 8vh;
+        border-radius: 0;
+        margin-bottom: 0;
+        padding: 10px 20px;
+    }
+
+
+    form button {
+        height: 8vh;
+        border-radius: 0;
+        border-top-right-radius: 10px;
+        border-bottom-right-radius: 10px;
+    }
+
+
+    .close__icon {
+        top: calc(25% - 5px);
+        right: calc(50% - 200px);
+    }
+
+
+    /* ************************************************************************************************* */
+    /* *************************************     Similar Movies     ************************************ */
+    /* ************************************************************************************************* */
+
+    #similar__movies {
+        flex-direction: row;
+        flex-wrap: wrap;
+    }
+
+
+    /* Single Movie Card */
+    .movie__card {
+        width: 22%;
+        height: fit-content;
+    }
+
+
+    .movie__card:hover {
+        transform: scale(1);
+    }
+
+
+    /* Movie Poster Image */
+    .movie__poster {
+        width: 100%;
+    }
+
+
+    .movie__card:hover .movie__poster {
+        transform: scale(1.2);
+    }
+
+
+    /* Movie Details */
+    .movie__details {
+        position: relative;
+        width: 100%;
+        padding: 30px 15px 15px;
+        border-left: none;
+        border-top: 3px solid;
+    }
+
+
+    /* Movie Rating Score */
+    .user__score {
+        top: -25px;
+        left: 20px;
+        right: unset;
+    }
+
+
+    .movie__card:hover .user__score {
+        border-color: initial;
+    }
+
+
+    /* ************************************************************************************************* */
+    /* *************************************     Single Movie     ************************************** */
+    /* ************************************************************************************************* */
+
+    /* Single Movie Card */
+    .single__movie {
+        width: 80vw;
+        height: 90vh;
+        top: calc(50% - 45vh);
+        left: calc(50% - 40vw);
+    }
+
+
+    /* Movie Poster Image */
+    .single__movie img {
+        height: 88%;
+        width: unset;
+    }
+
+
+    /* Movie Details */
+    .single__movie .details__container {
+        padding: 10px 20px;
+    }
+
+
+    /* Movie Title */
+    .main__title h2 {
+        flex-direction: row;
+        justify-content: flex-start;
+        flex-wrap: wrap;
+        width: 90%;
+    }
+
+
+    /* Movie Year */
+    .main__title h2 .year {
+        margin-left: 10px;
+    }
+
+
+    /* Movie Release Date, Genres and Runtime */
+    .main__title ul * {
+        list-style: none;
+    }
+
+
+    .main__title ul *:not(:first-child) {
+        list-style: disc;
+    }
+
+}
