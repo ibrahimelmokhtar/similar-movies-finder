@@ -56,7 +56,7 @@ app.use(express.static('./website'));
 
 // Callback to debug:
 const listening = () => {
-  console.log(`server is up and running on http://${hostName}:${port}`);
+  console.log(`server is up and running on http://${hostName}:${port}\n`);
 };
 
 
@@ -66,8 +66,14 @@ const postMovieTitle = (req, res) => {
   const movieTitle = req.body.title;
   console.log(movieTitle);
 
+  // construct new entry to save into the database:
+  const newEntry = {
+    date: new Date().toString(),
+    movieTitle: movieTitle,
+  };
+
   // save into the database:
-  saveNewEntry();
+  saveNewEntry(newEntry);
 
   // close the connection successfully:
   res.status(200).end();
@@ -76,8 +82,9 @@ const postMovieTitle = (req, res) => {
 
 /**
  * @description Save new entry into specific MongoDB database.
+ * @param {Object} newEntryObject
  */
-const saveNewEntry = async () => {
+const saveNewEntry = async (newEntryObject) => {
   // database URL:
   const url = `mongodb+srv://${admin}:${password}@cluster0.fttjz.mongodb.net/myFirstDatabase?retryWrites=true&w=majority`;
 
@@ -89,9 +96,12 @@ const saveNewEntry = async () => {
     await client.connect();
     console.log('connected to database ...');
 
+    // save the new entry into the database:
+    await client.db('user_movies').collection('favoriteMovies').insertOne(newEntryObject);
+
     // close the connection:
     await client.close();
-    console.log('close the database connection ...');
+    console.log('close the database connection ...\n');
 
   } catch (error) {
     console.log(`error: ${error}`);
