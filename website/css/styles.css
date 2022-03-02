@@ -21,6 +21,7 @@ header {
     color: #313552;
     height: 10vh;
     width: 100%;
+    background-color: #c3c4be;
 
     display: flex;
     flex-direction: row;
@@ -42,11 +43,14 @@ header h1 {
 
 form {
     height: 8vh;
+    background-color: #c3c4be;
 
     display: flex;
     flex-direction: row;
     justify-content: center;
     align-items: center;
+
+    position: relative;
 }
 
 
@@ -381,6 +385,7 @@ form button:hover #search__icon {
 /* User Score */
 .single__movie .user__score {
     position: static;
+    padding: 10px;
 }
 
 
